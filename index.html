@@ -148,7 +148,7 @@ td.c.res.t-guest{--tc:var(--t-guest)}td.c.res.t-prop{--tc:var(--t-prop)}td.c.res
 .lgcard{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:12px}
 .lgcard h2{margin:0;font-size:22px}.lglogo{display:flex;justify-content:flex-start;margin-bottom:4px}.lglogo .logo{height:64px;width:auto}
 .lgerr{color:var(--bad);font-weight:600;min-height:20px;font-size:14px}
-.btn[hidden],#who[hidden]{display:none!important}
+.btn[hidden],#who[hidden],#tabs button[hidden]{display:none!important}
 </style>
 
 <div class="top">
@@ -320,11 +320,11 @@ function startFB(){
       S.db=A.db;S.dl=dlShim;hideLogin();
       const g=!u.isAnonymous;
       $("#who").textContent=g?((u.email||"")+(S.admin?" · gestor":"")):"";$("#who").hidden=!g;
-      $("#btnSair").hidden=!g;$("#btnGestor").hidden=g;$("#btnImp").hidden=!S.admin;
+      $("#btnSair").hidden=!g;$("#btnGestor").hidden=g;$("#btnImp").hidden=!S.admin;$("#tabs [data-tab=analise]").hidden=!S.admin;if(!S.admin&&S.tab==="analise")S.tab="hoje";
       S.watchedYear=null;watch(S.ano);render();
     }else{
       S.unsub.forEach(f=>{try{f()}catch(e){}});S.unsub=[];S.db=null;S.regs=[];S.idx={};S.notasDia={};S.loaded=false;S.watchedYear=null;S.user=null;S.admin=false;
-      $("#who").hidden=true;$("#btnSair").hidden=true;$("#btnGestor").hidden=true;$("#btnImp").hidden=true;render();
+      $("#who").hidden=true;$("#btnSair").hidden=true;$("#btnGestor").hidden=true;$("#btnImp").hidden=true;$("#tabs [data-tab=analise]").hidden=true;if(S.tab==="analise")S.tab="hoje";render();
       try{await A.anon();}catch(e){showLogin("Não foi possível abrir a sessão ("+(e&&e.code||"erro")+"). Entra com a conta do departamento.");}
     }
   });
